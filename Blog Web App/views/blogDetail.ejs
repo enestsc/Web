@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .round-button-okey {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        background-color: rgb(117, 117, 117);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        border-radius: 50%;
+        border: 0;
+        font-size: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s;
+      }
+
+      .round-button-okey:hover {
+        background-color: rgb(196, 196, 196);
+      }
+      h1 {
+        margin: 5px 0 0 0;
+        text-align: center;
+      }
+      p {
+        margin-left: 20px;
+        margin-right: 20px;
+        font-size: large;
+      }
+      .container {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        grid-template-columns: 5% 95%;
+        grid-template-rows: 5% 95%;
+      }
+      #formBox {
+        width: 50%;
+        height: 55%;
+        background-color: rgb(149, 149, 149);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 3%;
+        z-index: 1000;
+        padding: 15px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+      }
+
+      textarea {
+        resize: none;
+      }
+
+      #text {
+        flex-grow: 1;
+      }
+      body {
+        margin: 0;
+      }
+      .round-button-back {
+        position: fixed;
+        top: 5px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        background-color: rgb(177, 177, 177);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        font-size: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s;
+      }
+
+      .round-button-back:hover {
+        background-color: gray;
+      }
+      .round-button-edit {
+        position: fixed;
+        bottom: 20px;
+        right: 25px;
+        width: 50px;
+        height: 50px;
+        background-color: rgb(177, 177, 177);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        font-size: 24px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s;
+      }
+
+      .round-button-edit:hover {
+        background-color: gray;
+      }
+      .menu a {
+        margin: 5px;
+        height: 25px;
+        display: block;
+        text-align: center;
+        justify-content: center;
+      }
+      a button {
+        width: 100%;
+        height: 100%;
+      }
+      .menu {
+        background-color: gainsboro;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .title {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+      }
+      .content {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        overflow-y: scroll;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="menu">
+        <a href="/">
+          <button>Home</button>
+        </a>
+        <a href="/blogs">
+          <button>Blogs</button>
+        </a>
+      </div>
+      <div class="title">
+        <h1><%= blog.title %></h1>
+      </div>
+      <div class="content">
+        <p><%- blog.text.replace(/\r\n|\r|\n/g, '<br />') %></p>
+      </div>
+    </div>
+
+    <a href="#" id="editButton" class="round-button-edit">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-pencil-square"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+        />
+        <path
+          fill-rule="evenodd"
+          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+        />
+      </svg>
+    </a>
+
+    <a href="/blogs" id="backButton" class="round-button-back">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-return-left"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"
+        />
+      </svg>
+    </a>
+
+    <form
+      action="/blogs/edit/<%= blogId %>"
+      method="post"
+      class="hidden"
+      id="formBox"
+    >
+      <button href="#" id="okeyButton" class="round-button-okey">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          fill="currentColor"
+          class="bi bi-check"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"
+          />
+        </svg>
+      </button>
+
+      <div class="form">
+        <h2>Blog Title</h2>
+        <textarea name="title" id="title"><%= blog.title %></textarea>
+        <h2>Blog Content</h2>
+        <textarea name="text" id="text"><%- blog.text %></textarea>
+      </div>
+    </form>
+
+    <script>
+      document
+        .getElementById("editButton")
+        .addEventListener("click", function () {
+          console.log("clicked");
+          var box = document.getElementById("formBox");
+          box.classList.toggle("hidden");
+        });
+    </script>
+  </body>
+</html>
